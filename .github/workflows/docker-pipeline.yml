@@ -22,8 +22,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.GITHUB_TOKEN._DOCKER_USERNAME }}
-          password: ${{ secrets.GITHUB_TOKEN._DOCKER_PASSWORD }}
+          username: ${{ secrets.GITHUB_TOKEN.USERNAME_DOCKER }}
+          password: ${{ secrets.GITHUB_TOKEN.PASSWORD_DOCKER }}
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
@@ -31,8 +31,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.GITHUB_TOKEN._DOCKER_USERNAME }}/my-app:latest
+          tags: ${{ secrets.GITHUB_TOKEN.USERNAME_DOCKER }}/my-app:latest
 
       - name: Deploy Container
         run: |
-          docker run -d --name my-app -p 80:80 ${{ secrets.GITHUB_TOKEN._DOCKER_USERNAME }}/my-app:latest
+          docker run -d --name my-app -p 80:80 ${{ secrets.GITHUB_TOKEN.USERNAME_DOCKER }}/my-app:latest
